@@ -1,0 +1,40 @@
+---
+title: "lab12_stat3333"
+author: "Elizabeth Flores, Regis Ouedraogo, Yohari Hernandez, Richard Sauve"
+date: '2022-10-28'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(testequavar)
+Verizon <- resampledata::Verizon
+Time.ILEC <-subset(Verizon, select = Time, Group=="ILEC", drop = TRUE)
+Time.CLEC <-subset(Verizon, select = Time, Group=="CLEC", drop = TRUE)
+#lets check fo normality
+qqnorm(Time.CLEC)
+qqline(Time.CLEC)
+```
+
+#lets check fo normality
+
+```{r}
+qqnorm(Time.ILEC)
+qqline(Time.ILEC)
+```
+lets perform a ttest 
+mu1-mu2>0
+
+```{r}
+Tstat =t.test(Time.ILEC, Time.CLEC, mu=0, alternative="greater",var.equal = TRUE)
+Tstat
+```
+ p-value = 0.9955
+ 
+```{r}
+equa2vartest(Time.ILEC, Time.CLEC, .05, 1000)
+```
+
